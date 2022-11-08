@@ -43,7 +43,7 @@ const thoughtsController = {
     },
 
     // update a thought by ID
-    updateThoughts(req, res) {
+    updateThought(req, res) {
         Thoughts.findOneAndUpdate(
             { _id: req.params.thoughtsId },
             { $set: req.body },
