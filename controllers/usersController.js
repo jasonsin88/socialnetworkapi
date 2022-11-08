@@ -11,7 +11,7 @@ const usersController = {
 
     // get a single user by ID
     getSingleUser(req, res) {
-        Users.findOne({ _id: req.params.usersId })
+        Users.findOne({ _id: req.params.userId })
             .populate(
                 {
                     path: 'thoughts',
@@ -43,7 +43,7 @@ const usersController = {
     // update a single user by ID
     updateUser(req, res) {
         Users.findOneAndUpdate(
-            { _id: req.params.usersId },
+            { _id: req.params.userId },
             body,
             {
                 new: true,
@@ -61,7 +61,7 @@ const usersController = {
     // delete a single user by ID
     deleteUser(req, res) {
         Users.findOneAndDelete(
-            { _id: req.params.usersID }
+            { _id: req.params.userID }
         )
         .then((user) =>
             !user
@@ -78,7 +78,7 @@ const usersController = {
     // add a new friend
     addFriend(req, res) {
         Users.findOneAndUpdate(
-        { _id: req.params.usersId },
+        { _id: req.params.userId },
         { $addToSet: { friends: req.params.friendId } },
         { runValidators: true, new: true }
         )
@@ -93,7 +93,7 @@ const usersController = {
     // remove a friend
     removeFriend(req, res) {
         Users.findOneAndUpdate(
-            { _id: req.params.usersId },
+            { _id: req.params.userId },
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         )
