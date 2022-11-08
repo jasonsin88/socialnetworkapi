@@ -25,8 +25,8 @@ const usersController = {
                 }
             )
             .select('-__v')
-            .then((users) => 
-                !users
+            .then((user) => 
+                !user
                     ? res.status(404).json({ message: 'No user with that ID'})
                     : res.json(user)
             )
@@ -36,12 +36,12 @@ const usersController = {
     // create a new user
     createUser(req, res) {
         Users.create(req.body)
-            .then((users) => res.json(users))
+            .then((user) => res.json(user))
             .catch((err) => res.status(500).json(err));
     },
 
     // update a single user by ID
-    updateUsers(req, res) {
+    updateUser(req, res) {
         Users.findOneAndUpdate(
             { _id: req.params.usersId },
             body,
@@ -50,25 +50,25 @@ const usersController = {
                 runValidators: true,
             }
         )
-        .then((users) =>
-            !users
+        .then((user) =>
+            !user
                 ? res.status(404).json({ message: 'No user with this ID!' })
-                : res.json(users)
+                : res.json(user)
         )
         .catch((err) => res.status(500).json(err));
     },
 
     // delete a single user by ID
-    deleteUsers(req, res) {
+    deleteUser(req, res) {
         Users.findOneAndDelete(
             { _id: req.params.usersID }
         )
-        .then((users) =>
-            !users
+        .then((user) =>
+            !user
                 ? res.status(404).json({ message: 'No user with this ID!' })
                 // delete the user's thoughts
                 : Thoughts.deleteMany(
-                    { _id: { $in: users.thoughts } }
+                    { _id: { $in: user.thoughts } }
                 )
         )
         .then(() => res.json({ message: 'User and thoughts deleted!' }))
@@ -79,13 +79,13 @@ const usersController = {
     addFriend(req, res) {
         Users.findOneAndUpdate(
         { _id: req.params.usersId },
-        { $addToSet: { friends: req.params.friendID } },
+        { $addToSet: { friends: req.params.friendId } },
         { runValidators: true, new: true }
         )
-        .then((users) =>
-            !users
+        .then((user) =>
+            !user
                 ? res.status(404).json({ message: 'No user with this ID!' })
-                : res.json(users)
+                : res.json(user)
         )
         .catch((err) => res.status(500).json(err));
     },
@@ -97,10 +97,10 @@ const usersController = {
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true }
         )
-        .then((users) =>
-            !users
+        .then((user) =>
+            !user
                 ? res.status(404).json({ message: 'No user with this ID!' })
-                : res.json(users)
+                : res.json(user)
         )
         .catch((err) => res.status(500).json(err));
     },
