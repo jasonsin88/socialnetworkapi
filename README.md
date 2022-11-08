@@ -53,7 +53,7 @@ After installation is completed, input the following to run the application:
 ```
 npm start
 ```
-  
+
 ## Usage
 
 ## License
