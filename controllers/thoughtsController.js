@@ -84,4 +84,42 @@ const thoughtsController = {
             )
             .catch((err) => res.status(500).json(err));
     },
-}
+
+    // create a reaction to a thought
+    addReaction(req, res) {
+        Thoughts.findOneAndUpdate(
+            { _id: req.params.thoughtsId },
+            { $addToSet: { reactions: req.body } },
+            {
+                runValidators: true,
+                new: true
+            }
+        )
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No thought with this ID!'})
+                    : res.json(thought)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+    // remove a reaction from a thought
+    removeReaction(req, res) {
+        Thoughts.findOneAndUpdate(
+            { _id: req.params.thoughtsId },
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
+            {
+                runValidators: true,
+                new: true
+            }
+        )
+            .then((thought) =>
+                !thought
+                    ? res.status(404).json({ message: 'No thought with this ID!'})
+                    : res.json(thought)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+};
+
+module.exports = thoughtsController;
