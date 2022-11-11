@@ -12,18 +12,6 @@ const usersController = {
     // get a single user by ID
     getSingleUser(req, res) {
         Users.findOne({ _id: req.params.userId })
-            // .populate(
-            //     {
-            //         path: 'thoughts',
-            //         select: '-__v',
-            //     }
-            // )
-            // .populate(
-            //     {
-            //         path: 'friends',
-            //         select: '-__v',
-            //     }
-            // )
             .select('-__v')
             .then((user) => 
                 !user
@@ -47,7 +35,7 @@ const usersController = {
     updateUser(req, res) {
         Users.findOneAndUpdate(
             { _id: req.params.userId },
-            body,
+            { $set: req.body },
             {
                 new: true,
                 runValidators: true,
