@@ -56,6 +56,8 @@ npm start
 
 ## Usage
 
+A video demonstrating the function of the API can be accessed [here](https://youtu.be/9kjuWC0lPiU)
+
 ## License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <br/>
 This project is licensed under MIT
