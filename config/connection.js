@@ -8,6 +8,6 @@ connect(connectionString, {
   useUnifiedTopology: true,
 });
 
-mongoose.set('debut', true);
+// mongoose.set('debut', true);
 
 module.exports = connection;
